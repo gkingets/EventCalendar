@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/icon_ver4"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/icon_ver4_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+
+            <!-- 遅延ディープリンクを有効にするために追加する値 -->
+            <meta-data
+                android:name="google_analytics_deferred_deep_link_enabled"
+                android:value="true" />
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="http"
+                    android:host="www.eventcalendar.com"
+                    android:pathPrefix="/test" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".MypageLogin"></activity>
+        <activity android:name=".MypageRegister"></activity>
+        <activity android:name=".SearchCat"></activity>
+    </application>
+
+</manifest>

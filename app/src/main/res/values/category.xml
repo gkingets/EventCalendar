@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category_list">
+        <item>Event</item>
+        <item>Sports</item>
+        <item>Travel</item>
+        <item>Concert</item>
+        <item>Drinking</item>
+        <item>Date</item>
+        <item>Comedy</item>
+        <item>Museum</item>
+        <item>Shopping</item>
+        <item>Amusement</item>
+        <item>Movie</item>
+        <item>Book</item>
+        <item>Outdoor</item>
+        <item>Art</item>
+        <item>Game</item>
+        <item>Gamble</item>
+        <item>Streaming</item>
+        <item>Idol</item>
+        <item>Driving</item>
+        <item>Cooking</item>
+        <item>Onsen</item>
+        <item>Workout</item>
+    </string-array>
+</resources>
+
