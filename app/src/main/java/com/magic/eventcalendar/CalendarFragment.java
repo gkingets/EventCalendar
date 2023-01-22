@@ -1,6 +1,7 @@
 package com.magic.eventcalendar;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,7 +22,6 @@ import android.widget.Switch;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -30,7 +30,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -40,7 +40,9 @@ public class CalendarFragment extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     View view;
     String uid, currentDate, iUID, iCategory;
-    String categoryFilter = "Event";
+    String categoryFilter = "イベント";
+    ArrayList<String> categoryEN;
+    ArrayList<String> categoryJP;
     int iPersonal;
     int personalFlag = 1;
     Spinner spinnerCategory;
@@ -85,6 +87,11 @@ public class CalendarFragment extends Fragment {
         spinnerCategory = (Spinner) view.findViewById(R.id.calendar_category);
         switchPersonal = (Switch) view.findViewById(R.id.calendar_personal);
         btnClear = (ImageButton) view.findViewById(R.id.calendar_clear);
+
+        Resources res = getResources();
+        categoryEN = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryEN)));
+        categoryJP = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryJP)));
+
     }
 
 
@@ -154,14 +161,14 @@ public class CalendarFragment extends Fragment {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     iUID = document.getData().get("uid").toString();
                                     iPersonal = Integer.parseInt(document.getData().get("Personal").toString());
-                                    iCategory = document.getData().get("Category").toString();
+                                    iCategory = categoryJP.get(categoryEN.indexOf(document.getData().get("Category").toString()));
                                     // 2つ目の条件をつける
                                     if (iUID.equals(uid) == true) {
                                         if (iPersonal <= personalFlag) {
-                                            if (categoryFilter.equals(iCategory) || categoryFilter.equals("Event")) {
+                                            if (categoryFilter.equals(iCategory) || categoryFilter.equals("イベント")) {
                                                 itemDocid.add(document.getId());
                                                 itemTitle.add(document.getData().get("Title").toString());
-                                                itemCategory.add(iCategory);
+                                                itemCategory.add(document.getData().get("Category").toString());
                                                 itemDate.add(document.getData().get("Date").toString());
                                                 itemDateSimple.add(document.getData().get("DateSimple").toString());
                                                 itemPersonal.add(document.getData().get("Personal").toString());
@@ -183,7 +190,7 @@ public class CalendarFragment extends Fragment {
     public void setCategorySpinner() {
         // Category Spinner
         ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(getActivity().getBaseContext(),
-                R.array.category_list, android.R.layout.simple_spinner_item);
+                R.array.categoryJP, android.R.layout.simple_spinner_item);
         adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(adapterCategory);
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

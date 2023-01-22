@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.text.TextUtils;
@@ -47,6 +48,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -56,6 +59,8 @@ public class CalendarEdit extends DialogFragment implements DatePickerDialog.OnD
     ArrayAdapter<CharSequence> adapterCategory;
     String iDocId, docId, title, category, date, dateSimple,
             place, description, uid, flagDate;
+    ArrayList<String> categoryEN;
+    ArrayList<String> categoryJP;
     TextInputEditText textTitle, textPlace, textDescription;
     TextView textDate;
     ImageView categoryImage, deleteImage, copyImage, calendarImage, backImage;
@@ -197,13 +202,14 @@ public class CalendarEdit extends DialogFragment implements DatePickerDialog.OnD
     private void setCategorySpinner() {
         // Category Spinner
         adapterCategory = ArrayAdapter.createFromResource(getActivity().getBaseContext(),
-                R.array.category_list, android.R.layout.simple_spinner_item);
+                R.array.categoryJP, android.R.layout.simple_spinner_item);
         adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(adapterCategory);
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                int res = getResources().getIdentifier(spinnerCategory.getSelectedItem().toString().toLowerCase(Locale.ROOT), "drawable", getActivity().getPackageName());
+                int catIndex = categoryJP.indexOf(spinnerCategory.getSelectedItem().toString());
+                int res = getResources().getIdentifier(categoryEN.get(catIndex).toLowerCase(Locale.ROOT), "drawable", getActivity().getPackageName());
                 categoryImage.setImageResource(res);
             }
 
@@ -241,6 +247,10 @@ public class CalendarEdit extends DialogFragment implements DatePickerDialog.OnD
         dateLayout = (LinearLayout) dialogLayout.findViewById(R.id.edit_date_layout);
         materialButtonToggleGroup = dialogLayout.findViewById(R.id.edit_toggle_group);
         backImage = (ImageView) dialogLayout.findViewById(R.id.edit_back);
+
+        Resources res = getResources();
+        categoryEN = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryEN)));
+        categoryJP = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryJP)));
     }
 
     private void setText(View dialogLayout) {
@@ -273,11 +283,13 @@ public class CalendarEdit extends DialogFragment implements DatePickerDialog.OnD
             materialButtonToggleGroup.check(R.id.edit_toggle_all_day);
         }
 
+
         // Set Spinner
-        spinnerPosition = adapterCategory.getPosition(category); // Get position number from Firestore Category
+        spinnerPosition = adapterCategory.getPosition(categoryJP.get(categoryEN.indexOf(category))); // Get position number from Firestore Category
         spinnerCategory.setSelection(spinnerPosition);
 
-        int res = getResources().getIdentifier(category.toLowerCase(Locale.ROOT), "drawable", getContext().getPackageName());
+        int catIndex = categoryJP.indexOf(spinnerCategory.getSelectedItem().toString());
+        int res = getResources().getIdentifier(categoryEN.get(catIndex).toLowerCase(Locale.ROOT), "drawable", getActivity().getPackageName());
         categoryImage.setImageResource(res);
     }
 
@@ -317,7 +329,7 @@ public class CalendarEdit extends DialogFragment implements DatePickerDialog.OnD
         findView(dialogLayout);
 
         title = textTitle.getText().toString();
-        category = (String) spinnerCategory.getSelectedItem();
+        category = categoryEN.get(categoryJP.indexOf(spinnerCategory.getSelectedItem()));
         date = textDate.getText().toString();
         place = textPlace.getText().toString();
         description = textDescription.getText().toString();

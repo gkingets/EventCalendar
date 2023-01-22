@@ -1,7 +1,6 @@
 package com.magic.eventcalendar;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -51,6 +49,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -66,6 +65,8 @@ public class MypageFragment extends Fragment {
     ImageView imageInfo;
     String uid, currentDate, iUID, iCategory, iMonth;
     String[] category_list;
+    ArrayList<String> categoryEN;
+    ArrayList<String> categoryJP;
     Integer bar1 = 0, bar2 = 0, bar3 = 0, bar4 = 0, bar5 = 0, bar6 = 0;
     PieChart pieChart;
     BarChart barChart;
@@ -101,10 +102,6 @@ public class MypageFragment extends Fragment {
         view = inflater.inflate(R.layout.mypage, container, false);
 
         findView();
-
-        // String arrayからリストを取得する
-        Resources res = getResources();
-        category_list = res.getStringArray(R.array.category_list);
 
 
         // Get uid
@@ -168,16 +165,20 @@ public class MypageFragment extends Fragment {
         btnLogout = (Button) view.findViewById(R.id.mypage_logout);
         textCount = (TextView) view.findViewById(R.id.mypage_count);
         imageInfo = (ImageView) view.findViewById(R.id.mypage_info);
+
+        Resources res = getResources();
+        categoryEN = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryEN)));
+        categoryJP = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryJP)));
+
     }
 
 
     private void showPieChart() {
         // Firestore からデータ取得
         CollectionReference collection = db.collection("event");
-
-        for (int i = 0; i < category_list.length; i++) {
+        for (int i = 0; i < categoryEN.size(); i++) {
             int x = i;
-            Query query = collection.whereEqualTo("Category", category_list[i]).whereEqualTo("uid", uid);
+            Query query = collection.whereEqualTo("Category", categoryEN.get(i)).whereEqualTo("uid", uid);
             AggregateQuery countQuery = query.count();
             countQuery.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
                 @Override
@@ -188,7 +189,8 @@ public class MypageFragment extends Fragment {
                             return;
                         }
                         num += snapshot.getCount();
-                        categoryMap.put(category_list[x], (int) snapshot.getCount());
+                        String catJP = categoryJP.get(categoryEN.indexOf(categoryEN.get(x)));
+                        categoryMap.put(catJP, (int) snapshot.getCount());
 
                     } else {
                         Log.d("genki", "Count failed: ");// task.getException()

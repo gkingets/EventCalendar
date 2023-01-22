@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="category_list">
+    <string-array name="categoryEN">
         <item>Event</item>
         <item>Sports</item>
         <item>Travel</item>
@@ -23,6 +23,31 @@
         <item>Cooking</item>
         <item>Onsen</item>
         <item>Workout</item>
+    </string-array>
+
+    <string-array name="categoryJP">
+        <item>イベント</item>
+        <item>スポーツ</item>
+        <item>旅行</item>
+        <item>コンサート</item>
+        <item>飲み会</item>
+        <item>デート</item>
+        <item>お笑い</item>
+        <item>ミュージアム</item>
+        <item>ショッピング</item>
+        <item>テーマパーク</item>
+        <item>映画</item>
+        <item>本</item>
+        <item>アウトドア</item>
+        <item>アート</item>
+        <item>ゲーム</item>
+        <item>ギャンブル</item>
+        <item>配信</item>
+        <item>アイドル</item>
+        <item>ドライブ</item>
+        <item>料理</item>
+        <item>温泉</item>
+        <item>筋トレ</item>
     </string-array>
 </resources>
 

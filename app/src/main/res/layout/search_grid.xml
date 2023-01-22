@@ -26,7 +26,7 @@
         android:shadowRadius="10"
         android:text="comedy"
         android:textColor="@color/md_theme_light_onPrimary"
-        android:textSize="30dp"
+        android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="@id/search_image_view"
         app:layout_constraintEnd_toEndOf="@id/search_image_view"
         app:layout_constraintEnd_toStartOf="@id/search_image_view"

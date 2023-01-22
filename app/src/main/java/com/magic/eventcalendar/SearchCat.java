@@ -2,6 +2,7 @@ package com.magic.eventcalendar;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -34,6 +36,8 @@ public class SearchCat extends AppCompatActivity {
     String category, uid, currentDate, iUID, iCategory;;
     int iPersonal, iReuse;
     RecyclerView recyclerView;
+    ArrayList<String> categoryEN;
+    ArrayList<String> categoryJP;
 
 //    @SuppressLint("MissingInflatedId")
     @Override
@@ -53,6 +57,10 @@ public class SearchCat extends AppCompatActivity {
 
         backImage = (ImageView) findViewById(R.id.search_cat_back);
         backImage.setOnClickListener(v -> {finish();});
+
+        Resources res = getResources();
+        categoryEN = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryEN)));
+        categoryJP = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryJP)));
 
         recyclerView = (RecyclerView) findViewById(R.id.search_cat_recyclerview);
 
@@ -84,7 +92,7 @@ public class SearchCat extends AppCompatActivity {
         List<String> itemPersonal = new ArrayList<>();
         List<String> itemTimestamp = new ArrayList<>();
 
-        String cat = category.substring(0, 1).toUpperCase() + category.substring(1);
+        String cat = categoryEN.get(categoryJP.indexOf(category));
 
         // current date
         TimeZone tz = TimeZone.getTimeZone("Asia/Tokyo");

@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchGridAdopter extends BaseAdapter {
@@ -18,15 +19,15 @@ public class SearchGridAdopter extends BaseAdapter {
     }
 
     private final List<Integer> imageList;
-    private final String[] category;
+    private final List<String> category;
     private final LayoutInflater inflater;
     private final int layoutId;
 
     // 引数がMainActivityからの設定と合わせる
     SearchGridAdopter(Context context,
-                int layoutId,
-                List<Integer> iList,
-                String[] iCategory) {
+                      int layoutId,
+                      List<Integer> iList,
+                      ArrayList<String> iCategory) {
 
         super();
         this.inflater = (LayoutInflater)
@@ -56,7 +57,7 @@ public class SearchGridAdopter extends BaseAdapter {
         }
 
         holder.imageView.setImageResource(imageList.get(position));
-        holder.textView.setText(category[position]);
+        holder.textView.setText(category.get(position));
 
         return convertView;
     }

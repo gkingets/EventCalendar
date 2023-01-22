@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -38,7 +39,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -53,6 +57,8 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
     Integer flagUndecided = 0;
     Button btnSave;
     String title, category, date, place, description, uid, dateSimple, docId;
+    ArrayList<String> categoryEN;
+    ArrayList<String> categoryJP;
     Integer dateInt, time;
     TimePicker textTimeFrom, textTimeTo, timePickerFrom, timePickerTo;
     Spinner spinnerCategory;
@@ -181,15 +187,15 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
 
         // Category Spinner
         ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(getActivity().getBaseContext(),
-                R.array.category_list, android.R.layout.simple_spinner_item);
+                R.array.categoryJP, android.R.layout.simple_spinner_item);
         adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(adapterCategory);
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                int res = getResources().getIdentifier(spinnerCategory.getSelectedItem().toString().toLowerCase(Locale.ROOT), "drawable", getActivity().getPackageName());
+                int catIndex = categoryJP.indexOf(spinnerCategory.getSelectedItem().toString());
+                int res = getResources().getIdentifier(categoryEN.get(catIndex).toLowerCase(Locale.ROOT), "drawable", getActivity().getPackageName());
                 image.setImageResource(res);
-
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -220,6 +226,9 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
         btnSave = (Button) view.findViewById(R.id.create_save);
         textDate = view.findViewById(R.id.create_date);
 
+        Resources res = getResources();
+        categoryEN = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryEN)));
+        categoryJP = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryJP)));
 
     }
 
@@ -271,9 +280,9 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
         title = textTitle.getText().toString();
 
         // Category
-        category = (String) spinnerCategory.getSelectedItem();
+        category = categoryEN.get(categoryJP.indexOf(spinnerCategory.getSelectedItem()));
 
-        // Date
+                // Date
         textDate = (TextView) view.findViewById(R.id.create_date);
         date = textDate.getText().toString();
 

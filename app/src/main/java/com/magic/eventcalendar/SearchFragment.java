@@ -14,19 +14,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -37,6 +35,8 @@ public class SearchFragment extends Fragment implements AdapterView.OnItemClickL
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     View view;
     String[] category_list;
+    ArrayList<String> categoryEN;
+    ArrayList<String> categoryJP;
     List<Integer> imgList;
     String uid, currentDate, iUID, iCategory;
     int iPersonal, iReuse;
@@ -59,15 +59,18 @@ public class SearchFragment extends Fragment implements AdapterView.OnItemClickL
 
         // String arrayからリストを取得する
         Resources res = getResources();
-        category_list = res.getStringArray(R.array.category_list);
+//        category_list = res.getStringArray(R.array.categoryJP);
 
         // Resource IDを格納するarray
         imgList = new ArrayList<>();
+        categoryEN = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryEN)));
+        categoryJP = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryJP)));
 
         // for-each member名をR.drawable.名前としてintに変換してarrayに登録
-        for (String member: category_list){
+        for (String member: categoryJP){
+            int catIndex = categoryJP.indexOf(member);
             int imageId = getResources().getIdentifier(
-                    member.toLowerCase(Locale.ROOT),"drawable", getContext().getPackageName());
+                    categoryEN.get(catIndex).toLowerCase(Locale.ROOT),"drawable", getContext().getPackageName());
             imgList.add(imageId);
         }
 
@@ -79,7 +82,7 @@ public class SearchFragment extends Fragment implements AdapterView.OnItemClickL
         SearchGridAdopter adapter = new SearchGridAdopter(getActivity().getApplicationContext(),
                 R.layout.search_grid,
                 imgList,
-                category_list
+                categoryJP
         );
 
         // gridViewにadapterをセット
@@ -99,7 +102,7 @@ public class SearchFragment extends Fragment implements AdapterView.OnItemClickL
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getActivity().getApplication(), SearchCat.class);
         intent.putExtra("IMAGEID", imgList.get(position));
-        intent.putExtra("CATEGORY", category_list[position].toString());
+        intent.putExtra("CATEGORY", categoryJP.get(position));
         startActivity( intent );
     }
 
