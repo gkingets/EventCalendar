@@ -433,7 +433,7 @@ public class MypageFragment extends Fragment {
                                             itemCategory.add(iCategory);
                                 }
                             }
-                            MypageAdopter adapter = new MypageAdopter(itemDocid, itemTitle, itemCategory);
+                            MypageAdapter adapter = new MypageAdapter(itemDocid, itemTitle, itemCategory);
                             recyclerView.setAdapter(adapter);
                         } else {
                             Log.d("genki", "Error getting documents: ", task.getException());

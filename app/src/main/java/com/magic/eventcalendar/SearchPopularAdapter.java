@@ -1,34 +1,23 @@
 package com.magic.eventcalendar;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
 import java.util.Locale;
 
-public class SearchPopularAdopter extends RecyclerView.Adapter<SearchPopularAdopter.ViewHolder>{
+public class SearchPopularAdapter extends RecyclerView.Adapter<SearchPopularAdapter.ViewHolder>{
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -57,7 +46,7 @@ public class SearchPopularAdopter extends RecyclerView.Adapter<SearchPopularAdop
         }
     }
 
-    SearchPopularAdopter(List<String> itemDocid, List<String> itemTitle, List<String> itemCategory,
+    SearchPopularAdapter(List<String> itemDocid, List<String> itemTitle, List<String> itemCategory,
                          List<String> itemDateSimple) {
         this.iDocId = itemDocid;
         this.iTitle = itemTitle;

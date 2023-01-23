@@ -1,6 +1,5 @@
 package com.magic.eventcalendar;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -130,7 +129,7 @@ public class SearchCat extends AppCompatActivity {
                                     }
                                 }
                             }
-                            SearchCatAdopter adapter = new SearchCatAdopter(itemDocid, itemTitle, itemDate, itemDateSimple);
+                            SearchCatAdapter adapter = new SearchCatAdapter(itemDocid, itemTitle, itemDate, itemDateSimple);
                             recyclerView.setAdapter(adapter);
                         } else {
                             Log.d("genki", "Error getting documents: ", task.getException());

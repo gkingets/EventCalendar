@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class CalendarAdopter extends RecyclerView.Adapter<CalendarAdopter.ViewHolder> {
+public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHolder> {
 
     private final java.util.List<String> iDocId;
     private final java.util.List<String> iTitle;
@@ -58,7 +58,7 @@ public class CalendarAdopter extends RecyclerView.Adapter<CalendarAdopter.ViewHo
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    CalendarAdopter(List<String> itemDocid, List<String> itemTitle, List<String> itemCategory, List<String> itemDate,
+    CalendarAdapter(List<String> itemDocid, List<String> itemTitle, List<String> itemCategory, List<String> itemDate,
                     List<String> itemDateSimple, List<String> itemPersonal, List<String> itemTimestamp,
                     String uid) {
         this.iDocId = itemDocid;

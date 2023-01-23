@@ -79,7 +79,7 @@ public class SearchFragment extends Fragment implements AdapterView.OnItemClickL
         // BaseAdapter を継承したGridAdapterのインスタンスを生成
         // 子要素のレイアウトファイル grid_items.xml を
         // activity_main.xml に inflate するためにGridAdapterに引数として渡す
-        SearchGridAdopter adapter = new SearchGridAdopter(getActivity().getApplicationContext(),
+        SearchGridAdapter adapter = new SearchGridAdapter(getActivity().getApplicationContext(),
                 R.layout.search_grid,
                 imgList,
                 categoryJP
@@ -151,7 +151,7 @@ public class SearchFragment extends Fragment implements AdapterView.OnItemClickL
                                     }
                                 }
                             }
-                            SearchPopularAdopter adapter = new SearchPopularAdopter(itemDocid, itemTitle, itemCategory, itemDateSimple);
+                            SearchPopularAdapter adapter = new SearchPopularAdapter(itemDocid, itemTitle, itemCategory, itemDateSimple);
                             recyclerView.setAdapter(adapter);
                         } else {
                             Log.d("genki", "Error getting documents: ", task.getException());

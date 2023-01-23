@@ -177,7 +177,7 @@ public class CalendarFragment extends Fragment {
                                         }
                                     }
                                 }
-                                CalendarAdopter adapter = new CalendarAdopter(itemDocid, itemTitle, itemCategory, itemDate, itemDateSimple,
+                                CalendarAdapter adapter = new CalendarAdapter(itemDocid, itemTitle, itemCategory, itemDate, itemDateSimple,
                                         itemPersonal, itemTimestamp, uid);
                                 recyclerView.setAdapter(adapter);
                             } else {

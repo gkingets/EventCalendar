@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class SearchCatAdopter extends RecyclerView.Adapter<SearchCatAdopter.ViewHolder>{
+public class SearchCatAdapter extends RecyclerView.Adapter<SearchCatAdapter.ViewHolder>{
 
     private final java.util.List<String> iDocId;
     private final java.util.List<String> iTitle;
@@ -53,7 +53,7 @@ public class SearchCatAdopter extends RecyclerView.Adapter<SearchCatAdopter.View
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    SearchCatAdopter(List<String> itemDocId, List<String> itemTitle, List<String> itemDate,
+    SearchCatAdapter(List<String> itemDocId, List<String> itemTitle, List<String> itemDate,
                      List<String> itemDateSimple) {
         this.iDocId = itemDocId;
         this.iTitle = itemTitle;
@@ -113,7 +113,7 @@ public class SearchCatAdopter extends RecyclerView.Adapter<SearchCatAdopter.View
     }
 
     public void dialog(String docId) {
-        SearchCatAdopterCopyDialog dialogRight = new SearchCatAdopterCopyDialog();
+        SearchCatAdapterCopyDialog dialogRight = new SearchCatAdapterCopyDialog();
         // 渡す値をセット
         Bundle args = new Bundle();
         args.putString("docId", docId);

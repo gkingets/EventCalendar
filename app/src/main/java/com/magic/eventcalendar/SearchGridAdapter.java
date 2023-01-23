@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchGridAdopter extends BaseAdapter {
+public class SearchGridAdapter extends BaseAdapter {
 
     static class ViewHolder {
         ImageView imageView;
@@ -24,7 +24,7 @@ public class SearchGridAdopter extends BaseAdapter {
     private final int layoutId;
 
     // 引数がMainActivityからの設定と合わせる
-    SearchGridAdopter(Context context,
+    SearchGridAdapter(Context context,
                       int layoutId,
                       List<Integer> iList,
                       ArrayList<String> iCategory) {

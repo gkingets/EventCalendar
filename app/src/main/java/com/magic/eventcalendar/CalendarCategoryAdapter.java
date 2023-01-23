@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class CalendarCategoryAdopter extends RecyclerView.Adapter<CalendarCategoryAdopter.ViewHolder> {
+public class CalendarCategoryAdapter extends RecyclerView.Adapter<CalendarCategoryAdapter.ViewHolder> {
     // List with String type
     private List<String> list;
 
@@ -34,7 +34,7 @@ public class CalendarCategoryAdopter extends RecyclerView.Adapter<CalendarCatego
 
     // Constructor for adapter class
     // which takes a list of String type
-    public CalendarCategoryAdopter(List<String> horizontalList)
+    public CalendarCategoryAdapter(List<String> horizontalList)
     {
         this.list = horizontalList;
     }

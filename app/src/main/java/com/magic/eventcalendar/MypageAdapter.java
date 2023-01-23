@@ -20,21 +20,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
 import java.util.Locale;
 
-public class MypageAdopter extends RecyclerView.Adapter<MypageAdopter.ViewHolder> {
+public class MypageAdapter extends RecyclerView.Adapter<MypageAdapter.ViewHolder> {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -67,7 +62,7 @@ public class MypageAdopter extends RecyclerView.Adapter<MypageAdopter.ViewHolder
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    MypageAdopter(List<String> itemDocid, List<String> itemTitle, List<String> itemCategory) {
+    MypageAdapter(List<String> itemDocid, List<String> itemTitle, List<String> itemCategory) {
         this.iDocId = itemDocid;
         this.iTitle = itemTitle;
         this.iCategory = itemCategory;
@@ -76,15 +71,15 @@ public class MypageAdopter extends RecyclerView.Adapter<MypageAdopter.ViewHolder
 
     @NonNull
     @Override
-    public MypageAdopter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MypageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.mypage_list, parent, false);
         // set the view's size, margins, paddings and layout parameters
-        return new MypageAdopter.ViewHolder(view);
+        return new MypageAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MypageAdopter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull MypageAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.textTitle.setText(iTitle.get(position));
         int res = context.getResources().getIdentifier(iCategory.get(position).toLowerCase(Locale.ROOT), "drawable", context.getPackageName());
         holder.imageView.setImageResource(res);
