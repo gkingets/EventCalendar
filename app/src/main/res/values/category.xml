@@ -26,28 +26,28 @@
     </string-array>
 
     <string-array name="categoryJP">
-        <item>イベント</item>
-        <item>スポーツ</item>
-        <item>旅行</item>
-        <item>コンサート</item>
-        <item>飲み会</item>
-        <item>デート</item>
-        <item>お笑い</item>
-        <item>ミュージアム</item>
-        <item>ショッピング</item>
-        <item>テーマパーク</item>
-        <item>映画</item>
-        <item>本</item>
-        <item>アウトドア</item>
-        <item>アート</item>
-        <item>ゲーム</item>
-        <item>ギャンブル</item>
-        <item>配信</item>
-        <item>アイドル</item>
-        <item>ドライブ</item>
-        <item>料理</item>
-        <item>温泉</item>
-        <item>筋トレ</item>
+        <item>@string/cat_event</item>
+        <item>@string/cat_sports</item>
+        <item>@string/cat_travel</item>
+        <item>@string/cat_concert</item>
+        <item>@string/cat_drinking</item>
+        <item>@string/cat_date</item>
+        <item>@string/cat_comedy</item>
+        <item>@string/cat_museum</item>
+        <item>@string/cat_shopping</item>
+        <item>@string/cat_amusement</item>
+        <item>@string/cat_movie</item>
+        <item>@string/cat_book</item>
+        <item>@string/cat_outdoor</item>
+        <item>@string/cat_art</item>
+        <item>@string/cat_game</item>
+        <item>@string/cat_gamble</item>
+        <item>@string/cat_streaming</item>
+        <item>@string/cat_idol</item>
+        <item>@string/cat_driving</item>
+        <item>@string/cat_cooking</item>
+        <item>@string/cat_onsen</item>
+        <item>@string/cat_workout</item>
     </string-array>
 </resources>
 

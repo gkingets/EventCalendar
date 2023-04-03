@@ -38,14 +38,16 @@
                 <TextView
                     android:id="@+id/search_cat_list_date"
                     android:layout_width="match_parent"
-                    android:layout_height="15dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="15"
                     android:text="date"
                     android:autoSizeTextType="uniform"
                     android:gravity="center"/>
                 <TextView
                     android:id="@+id/search_cat_list_left"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="20"
                     android:text="Left"
                     android:autoSizeTextType="uniform"
                     android:textStyle="bold"
@@ -54,8 +56,10 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="15dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="15"
                     android:text="Days"
+                    android:paddingTop="-30dp"
                     android:autoSizeTextType="uniform"
                     android:textColor="?attr/colorPrimary"
                     android:gravity="center|top"/>

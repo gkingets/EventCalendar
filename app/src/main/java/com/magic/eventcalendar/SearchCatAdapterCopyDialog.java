@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -39,7 +41,7 @@ public class SearchCatAdapterCopyDialog extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 //        LayoutInflater inflater = requireActivity().getLayoutInflater();
-//        dialogLayout = inflater.inflate(R.layout.create_dialog, null);
+//        dialogLayout = inflater.inflate(R.layout., null);
 
         builder.setTitle("イベントをコピーしますか？")
                 .setPositiveButton("はい", new DialogInterface.OnClickListener() {
@@ -52,7 +54,8 @@ public class SearchCatAdapterCopyDialog extends DialogFragment {
                     }
                 });
 
-        navigationView = builder.create().findViewById(R.id.bottom_navigation);
+        navigationView = (BottomNavigationView) dialogLayout.findViewById(R.id.bottom_navigation);
+//        Log.d("genki","navigationView|"+navigationView);
 
         docId = getArguments().getString("docId", "");
         getUid();
@@ -84,13 +87,15 @@ public class SearchCatAdapterCopyDialog extends DialogFragment {
                         } else {
                             Log.d("genki", "Error getting documents: ", task.getException());
                         }
-                        createEvent();
+                        MenuItem item = navigationView.getMenu().getItem(0);
+                        Log.d("genki", "item"+item);
+                        createEvent(item);
                         Log.d("genki", "success");
                     }
                 });
     }
 
-    public void createEvent() {
+    public void createEvent(MenuItem item) {
         // Timestamp
         String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 
@@ -117,18 +122,8 @@ public class SearchCatAdapterCopyDialog extends DialogFragment {
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d("genki", "DocumentSnapshot added with ID: " + documentReference.getId());
 
-                        // うまくいかぬ・・・
-                        // CalendarFragment へ遷移する
-//                        FragmentManager fragmentManager = getChildFragmentManager();
-//                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                        // BackStackを設定
-//                        fragmentTransaction.addToBackStack(null);
-//                        fragmentTransaction.replace(R.id.container, new CalendarFragment());
-//                        fragmentTransaction.commit();
-
-//                        BottomNavigationView navigationView = builder (R.id.bottom_navigation);
-                        navigationView.getMenu().getItem(0).setChecked(true);
-
+                        item.setChecked(true);
+//                        navigationView.getMenu().getItem(0).setChecked(true);
                         // 多分これ正解ではなくて、Activity取得してるからCalendarに移動しているのだと思う
 //                        Intent intent = new Intent(getActivity(), MainActivity.class);
 //                        startActivity(intent);
@@ -153,4 +148,5 @@ public class SearchCatAdapterCopyDialog extends DialogFragment {
             startActivity(intent);
         }
     }
+
 }

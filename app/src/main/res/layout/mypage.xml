@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:backgroundTint="#83656565"
-                android:text="ログアウト"
+                android:text="@string/logout"
                 android:textSize="10dp" />
 
         </LinearLayout>
@@ -129,7 +129,8 @@
         android:layout_marginLeft="@dimen/margin_create"
         app:cardCornerRadius="10dp"
         android:outlineSpotShadowColor="?attr/colorAccent"
-        app:layout_constraintTop_toBottomOf="@id/mypage_card_pie_chart">
+        app:layout_constraintTop_toBottomOf="@id/mypage_card_pie_chart"
+        android:visibility="gone">
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/idBarChart"

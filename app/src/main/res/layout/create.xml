@@ -27,7 +27,7 @@
             android:layout_marginLeft="@dimen/margin_create"
             android:layout_marginTop="@dimen/margin_create"
             android:layout_marginRight="@dimen/margin_create"
-            android:text="保存"
+            android:text="@string/save"
             android:textSize="20dp"
             app:layout_constraintTop_toBottomOf="@id/create_image" />
 
@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/md_theme_light_primary"
-                android:hint="タイトル"
+                android:hint="@string/title"
                 android:inputType="text"
                 android:textSize="24dp" />
 
@@ -108,8 +108,7 @@
                         android:layout_weight="1"
                         android:layout_height="match_parent"
                         android:autoSizeTextType="uniform"
-
-                        android:text="終日" />
+                        android:text="@string/all_day" />
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/create_toggle_set_time"
                         style="?attr/materialButtonOutlinedStyle"
@@ -117,7 +116,7 @@
                         android:layout_weight="1"
                         android:layout_height="match_parent"
                         android:autoSizeTextType="uniform"
-                        android:text="時間設定" />
+                        android:text="@string/time_setting" />
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/create_toggle_undecided"
                         style="?attr/materialButtonOutlinedStyle"
@@ -125,7 +124,7 @@
                         android:layout_weight="1"
                         android:layout_height="match_parent"
                         android:autoSizeTextType="uniform"
-                        android:text="未定" />
+                        android:text="@string/tbd" />
                 </com.google.android.material.button.MaterialButtonToggleGroup>
 
             </LinearLayout>
@@ -154,17 +153,6 @@
                     android:text="2022/10/10"
                     android:textSize="20dp" />
 
-                <Switch
-                    android:id="@+id/create_allday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:checked="true"
-                    android:gravity="center"
-                    android:text="終日"
-                    android:textSize="14dp"
-                    tools:ignore="UseSwitchCompatOrMaterialXml"
-                    android:visibility="gone"/>
 
             </LinearLayout>
 
@@ -173,7 +161,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <Space
                     android:layout_width="20dp"
@@ -220,7 +208,7 @@
                     android:layout_gravity="center"
                     android:checked="false"
                     android:gravity="center"
-                    android:text="繰り返し"
+                    android:text="@string/repeat"
                     tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             </LinearLayout>
@@ -231,7 +219,7 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="@dimen/margin_create"
                 android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <Space
                     android:layout_width="30dp"
@@ -319,7 +307,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="非公開"
+                    android:text="@string/personal"
                     tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             </LinearLayout>

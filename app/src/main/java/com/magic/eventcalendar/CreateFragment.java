@@ -154,6 +154,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
     public void setRepeatSwitch() {
         // Repeat Switch
         LinearLayout repeatDate = (LinearLayout) view.findViewById(R.id.create_repeat_layout);
+        repeatDate.setVisibility(View.GONE);
         Switch switchRepeat = (Switch) view.findViewById(R.id.create_repeat);
         switchRepeat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -221,6 +222,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
         timePickerFrom = (TimePicker) view.findViewById(R.id.create_timepicker_from); // initiate a time picker
         timePickerTo = (TimePicker) view.findViewById(R.id.create_timepicker_to); // initiate a time picker
         timePickerLayout = (LinearLayout) view.findViewById(R.id.create_timepicker_layout);
+        timePickerLayout.setVisibility(View.GONE);
         dateLayout = (LinearLayout) view.findViewById(R.id.create_date_layout);
         materialButtonToggleGroup = view.findViewById(R.id.create_toggle_group);
         btnSave = (Button) view.findViewById(R.id.create_save);

@@ -165,7 +165,7 @@ public class CalendarFragment extends Fragment {
                                     // 2つ目の条件をつける
                                     if (iUID.equals(uid) == true) {
                                         if (iPersonal <= personalFlag) {
-                                            if (categoryFilter.equals(iCategory) || categoryFilter.equals("イベント")) {
+                                            if (categoryFilter.equals(iCategory) || categoryFilter.equals(getString(R.string.cat_event))) {
                                                 itemDocid.add(document.getId());
                                                 itemTitle.add(document.getData().get("Title").toString());
                                                 itemCategory.add(document.getData().get("Category").toString());

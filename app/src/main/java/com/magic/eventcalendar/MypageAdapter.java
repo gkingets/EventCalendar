@@ -89,7 +89,6 @@ public class MypageAdapter extends RecyclerView.Adapter<MypageAdapter.ViewHolder
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 ratingInt = Integer.parseInt(documentSnapshot.getData().get("Rating").toString());
-                Log.d("genki", "rating|"+ratingInt+"  text"+iTitle.get(position));
                 holder.ratingBar.setRating(ratingInt);
             }
         });
