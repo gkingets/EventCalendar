@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Evenree - 予定管理アプリ</string>
+    <string name="hint_place"><font size="14">場所</font></string>
+    <string name="hint_description"><font size="14">説明</font></string>
+    <string name="login_failed">ログインに失敗しました</string>
+    <string name="invalid_password">パスワードは5文字以上</string>
+    <string name="invalid_username">有効なユーザー名ではありません</string>
+    <string name="welcome">ようこそ！</string>
+    <string name="action_sign_in_short">サインイン</string>
+    <string name="action_sign_in">サインイン or 登録</string>
+    <string name="prompt_password">パスワード</string>
+    <string name="prompt_email">メール</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cat_event">イベント</string>
+    <string name="cat_sports">スポーツ</string>
+    <string name="cat_travel">旅行</string>
+    <string name="cat_concert">コンサート</string>
+    <string name="cat_drinking">飲み会</string>
+    <string name="cat_date">デート</string>
+    <string name="cat_comedy">お笑い</string>
+    <string name="cat_museum">ミュージアム</string>
+    <string name="cat_shopping">ショッピング</string>
+    <string name="cat_amusement">テーマパーク</string>
+    <string name="cat_movie">映画</string>
+    <string name="cat_book">本</string>
+    <string name="cat_outdoor">アウトドア</string>
+    <string name="cat_art">アート</string>
+    <string name="cat_game">ゲーム</string>
+    <string name="cat_gamble">ギャンブル</string>
+    <string name="cat_streaming">配信</string>
+    <string name="cat_idol">アイドル</string>
+    <string name="cat_driving">ドライブ</string>
+    <string name="cat_cooking">料理</string>
+    <string name="cat_onsen">温泉</string>
+    <string name="cat_workout">筋トレ</string>
+    <string name="logout">ログアウト</string>
+    <string name="public_only">公開のみ</string>
+    <string name="category">カテゴリー</string>
+    <string name="save">保存</string>
+    <string name="title">タイトル</string>
+    <string name="all_day">終日</string>
+    <string name="time_setting">時間設定</string>
+    <string name="tbd">未定</string>
+    <string name="personal">非公開</string>
+    <string name="repeat">繰り返し</string>
+    <string name="go_to_calendar">イベント一覧へ</string>
+    <string name="keep_creating">続けて入力する</string>
+    <string name="register_to_calendar_app">カレンダーアプリへ登録</string>
+    <string name="feedback_form">コメントフォーム</string>
+</resources>

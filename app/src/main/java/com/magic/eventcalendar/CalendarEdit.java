@@ -244,6 +244,7 @@ public class CalendarEdit extends DialogFragment implements DatePickerDialog.OnD
         timePickerFrom = (TimePicker) dialogLayout.findViewById(R.id.edit_timepicker_from); // initiate a time picker
         timePickerTo = (TimePicker) dialogLayout.findViewById(R.id.edit_timepicker_to); // initiate a time picker
         timePickerLayout = (LinearLayout) dialogLayout.findViewById(R.id.edit_timepicker_layout);
+        timePickerLayout.setVisibility(View.GONE);
         dateLayout = (LinearLayout) dialogLayout.findViewById(R.id.edit_date_layout);
         materialButtonToggleGroup = dialogLayout.findViewById(R.id.edit_toggle_group);
         backImage = (ImageView) dialogLayout.findViewById(R.id.edit_back);

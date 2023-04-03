@@ -25,12 +25,11 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="50dp"
-                android:text="イベント一覧へ"
+                android:text="@string/go_to_calendar"
                 android:textColor="@color/md_theme_dark_background"
                 android:backgroundTint="@color/md_theme_dark_onSurfaceVariant"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:ignore="MissingConstraints"/>
+                app:layout_constraintEnd_toEndOf="parent"/>
             <Space
                 android:layout_width="20dp"
                 android:layout_height="match_parent"/>
@@ -39,14 +38,11 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="50dp"
-                android:text="入力を続ける"
+                android:text="@string/keep_creating"
                 android:textColor="@color/md_theme_dark_background"
                 android:backgroundTint="@color/md_theme_dark_onSurfaceVariant"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:ignore="MissingConstraints"/>
-
-
+                app:layout_constraintEnd_toEndOf="parent"/>
         </LinearLayout>
 
 
@@ -58,10 +54,9 @@
             android:layout_marginBottom="@dimen/margin_min"
             android:layout_marginRight="@dimen/margin_create"
             android:layout_marginLeft="@dimen/margin_create"
-            android:text="カレンダーアプリへ登録"
+            android:text="@string/register_to_calendar_app"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="MissingConstraints"/>
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </LinearLayout>
 
