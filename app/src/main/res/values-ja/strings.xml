@@ -62,5 +62,7 @@
     <string name="register">新規登録</string>
     <string name="login_here">ログインはこちらから</string>
     <string name="copy_event">イベントをコピーしますか？</string>
+    <string name="url_terms_of_use">shorturl.at/uEIWZ</string>
+    <string name="url_privacy_policy">shorturl.at/ixBW8</string>
 
 </resources>

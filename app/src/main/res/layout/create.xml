@@ -105,24 +105,26 @@
                         android:id="@+id/create_toggle_all_day"
                         style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:autoSizeTextType="uniform"
                         android:text="@string/all_day" />
+
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/create_toggle_set_time"
                         style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:autoSizeTextType="uniform"
                         android:text="@string/time_setting" />
+
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/create_toggle_undecided"
                         style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:autoSizeTextType="uniform"
                         android:text="@string/tbd" />
                 </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -145,14 +147,13 @@
 
                 <TextView
                     android:id="@+id/create_date"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:gravity="center|left"
                     android:layout_marginRight="@dimen/margin_create"
-                    android:gravity="center"
                     android:text="2022/10/10"
                     android:textSize="20dp" />
-
 
             </LinearLayout>
 
@@ -165,7 +166,7 @@
 
                 <Space
                     android:layout_width="20dp"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
 
                 <TimePicker
                     android:id="@+id/create_timepicker_from"
@@ -254,10 +255,10 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="5"
+                    android:autoSizeTextType="uniform"
                     android:backgroundTint="@color/md_theme_light_primary"
                     android:gravity="left"
                     android:hint="@string/hint_place"
-                    android:autoSizeTextType="uniform"
                     android:inputType="text" />
 
             </LinearLayout>
@@ -311,9 +312,10 @@
                     tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             </LinearLayout>
+
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="400dp"/>
+                android:layout_height="400dp" />
 
         </LinearLayout>
 

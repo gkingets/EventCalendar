@@ -82,7 +82,7 @@ public class MypageLoginDialog extends DialogFragment {
 
 
         mAuth = FirebaseAuth.getInstance();
-        mAuth.setLanguageCode("ja");
+//        mAuth.setLanguageCode("ja");
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
@@ -128,7 +128,7 @@ public class MypageLoginDialog extends DialogFragment {
             @Override
             public void onClick(View widget) {
                 // リンクがクリックされたときの処理を記述する
-                Uri uri = Uri.parse("https://docs.google.com/document/d/e/2PACX-1vRoIOZRYl2139Em7e4VTUUDQgZLuL63en8eB8tVowqnFkmKxlz_t4R7pCFRalO4UaadE1gIhtOjRC1S/pub");
+                Uri uri = Uri.parse(getString(R.string.url_terms_of_use));
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
@@ -154,7 +154,7 @@ public class MypageLoginDialog extends DialogFragment {
             @Override
             public void onClick(View widget) {
                 // リンクがクリックされたときの処理を記述する
-                Uri uri = Uri.parse("https://docs.google.com/document/d/e/2PACX-1vSZGdp9nhtwHfJKOLpgYGVL_0XziOxV6UvSyKZle5LxVwoykhYAMZrRHfAM9lAEKP4uzMwCZEE-QSK-/pub");
+                Uri uri = Uri.parse(getString(R.string.url_privacy_policy));
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
@@ -197,6 +197,7 @@ public class MypageLoginDialog extends DialogFragment {
     private void btnLogout() {
         btnLogout.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
+            mGoogleSignInClient.signOut();
             getActivity().recreate();
             dismiss();
         });
@@ -242,7 +243,7 @@ public class MypageLoginDialog extends DialogFragment {
                             Func funcFirebase = new Func();
                             funcFirebase.createUser(user.getUid());
                             Log.d("genki", "login|"+user.getUid());
-                            getActivity().recreate();
+//                            getActivity().recreate();
                             dismiss();
                         } else {
                             // If sign in fails, display a message to the user.

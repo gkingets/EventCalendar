@@ -3,7 +3,6 @@ package com.magic.eventcalendar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 
@@ -33,13 +32,14 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,10 +67,25 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
     Switch switchPersonal;
     LinearLayout timePickerLayout, dateLayout;
     MaterialButtonToggleGroup materialButtonToggleGroup;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
 
     public CreateFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onResume() {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, "CreateFragment");
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, "MainActivity");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
+
+        getUid();
+        super.onResume();
+        BottomNavigationView navigationView = getActivity().findViewById(R.id.bottom_navigation);
+        navigationView.getMenu().getItem(2).setChecked(true);
     }
 
    @Override
@@ -96,8 +111,19 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
 
         setHideSoftKeyboard(view);
 
+//        textTitle.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if (uid.equals("GUEST")) {
+//                    dialogLogin(uid);
+//                }
+//                return false;
+//            }
+//        });
+
         // Click Save
         btnSave.setOnClickListener(v -> {
+            getUid();
             if (uid.equals("GUEST")) {
                 dialogLogin(uid);
             } else {
@@ -272,7 +298,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
         // Category
         category = categoryEN.get(categoryJP.indexOf(spinnerCategory.getSelectedItem()));
 
-                // Date
+        // Date
         textDate = (TextView) view.findViewById(R.id.create_date);
         date = textDate.getText().toString();
 
@@ -297,6 +323,8 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
         } else {
             time = 0;
         }
+
+        // DateInt + Time(From)
 
         // Place
         textPlace = (TextView) view.findViewById(R.id.create_place);
@@ -349,10 +377,18 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
                     }
                 });
 
+        SELECT_CONTENT(category);
+
         // キーボードを非表示にする
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
+    }
+
+    private void SELECT_CONTENT(String contentType) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, contentType);
+        FirebaseAnalytics.getInstance(getActivity()).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 
     // dialogインスタンスを生成して、docIdを渡す
@@ -428,6 +464,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
     }
 
     public void findView() {
+        textTitle = (TextView) view.findViewById(R.id.create_title);
         image = (ImageView) view.findViewById(R.id.create_image);
         spinnerCategory = (Spinner) view.findViewById(R.id.create_category);
         switchPersonal = (Switch) view.findViewById(R.id.create_personal);

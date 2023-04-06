@@ -46,6 +46,7 @@
         <activity android:name=".MypageLogin"></activity>
         <activity android:name=".MypageRegister"></activity>
         <activity android:name=".SearchCat"></activity>
+
     </application>
 
 </manifest>

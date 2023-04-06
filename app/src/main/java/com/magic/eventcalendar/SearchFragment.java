@@ -18,6 +18,8 @@ import android.widget.GridView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -40,10 +42,24 @@ public class SearchFragment extends Fragment implements AdapterView.OnItemClickL
     List<Integer> imgList;
     String uid, currentDate, iUID, iCategory;
     int iPersonal, iReuse;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
 
     public SearchFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onResume() {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, "SearchFragment");
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, "MainActivity");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
+
+        super.onResume();
+        BottomNavigationView navigationView = getActivity().findViewById(R.id.bottom_navigation);
+        navigationView.getMenu().getItem(1).setChecked(true);
     }
 
     @Override
@@ -91,7 +107,7 @@ public class SearchFragment extends Fragment implements AdapterView.OnItemClickL
         // item clickのListnerをセット
         gridview.setOnItemClickListener(this);
 
-        popularListChanges();
+//        popularListChanges();
 
         return view;
 
@@ -107,56 +123,56 @@ public class SearchFragment extends Fragment implements AdapterView.OnItemClickL
     }
 
     // リストの内容を更新する
-    public void popularListChanges() {
-        RecyclerView recyclerView = view.findViewById(R.id.search_recyclerview);
-        recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(getActivity());
-
-        recyclerView.setLayoutManager(rLayoutManager);
-
-        List<String> itemDocid = new ArrayList<>();
-        List<String> itemTitle = new ArrayList<>();
-        List<String> itemCategory = new ArrayList<>();
-        List<String> itemDateSimple = new ArrayList<>();
-
-        // current date
-        TimeZone tz = TimeZone.getTimeZone("Asia/Tokyo");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        sdf.setTimeZone(tz);
-        currentDate = sdf.format(new Date());
-
-        // ***ここにCOUNTを入れる
-        db.collection("event")
-                .whereGreaterThanOrEqualTo("DateInt", Integer.parseInt(currentDate))
-                .orderBy("DateInt")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                iUID = document.getData().get("uid").toString();
-                                iPersonal = Integer.parseInt(document.getData().get("Personal").toString());
-                                iCategory = document.getData().get("Category").toString();
-                                iReuse = Integer.parseInt(document.getData().get("Reuse").toString());
-                                // 2つ目の条件をつける
-                                if (iUID.equals(uid) == false || iUID.equals("we0lP6JayRbbGKF83gdF4fy2nmz2") == true ) {
-                                    if (iPersonal != 1) {
-                                            if (iReuse != 1) {
-                                                itemDocid.add(document.getId());
-                                                itemTitle.add(document.getData().get("Title").toString());
-                                                itemCategory.add(iCategory);
-                                                itemDateSimple.add(document.getData().get("DateSimple").toString());
-                                            }
-                                    }
-                                }
-                            }
-                            SearchPopularAdapter adapter = new SearchPopularAdapter(itemDocid, itemTitle, itemCategory, itemDateSimple);
-                            recyclerView.setAdapter(adapter);
-                        } else {
-                            Log.d("genki", "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-    }
+//    public void popularListChanges() {
+//        RecyclerView recyclerView = view.findViewById(R.id.search_recyclerview);
+//        recyclerView.setHasFixedSize(true);
+//        RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(getActivity());
+//
+//        recyclerView.setLayoutManager(rLayoutManager);
+//
+//        List<String> itemDocid = new ArrayList<>();
+//        List<String> itemTitle = new ArrayList<>();
+//        List<String> itemCategory = new ArrayList<>();
+//        List<String> itemDateSimple = new ArrayList<>();
+//
+//        // current date
+//        TimeZone tz = TimeZone.getTimeZone("Asia/Tokyo");
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+//        sdf.setTimeZone(tz);
+//        currentDate = sdf.format(new Date());
+//
+//        // ***ここにCOUNTを入れる
+//        db.collection("event")
+//                .whereGreaterThanOrEqualTo("DateInt", Integer.parseInt(currentDate))
+//                .orderBy("DateInt")
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                iUID = document.getData().get("uid").toString();
+//                                iPersonal = Integer.parseInt(document.getData().get("Personal").toString());
+//                                iCategory = document.getData().get("Category").toString();
+//                                iReuse = Integer.parseInt(document.getData().get("Reuse").toString());
+//                                // 2つ目の条件をつける
+//                                if (iUID.equals(uid) == false || iUID.equals("we0lP6JayRbbGKF83gdF4fy2nmz2") == true ) {
+//                                    if (iPersonal != 1) {
+//                                            if (iReuse != 1) {
+//                                                itemDocid.add(document.getId());
+//                                                itemTitle.add(document.getData().get("Title").toString());
+//                                                itemCategory.add(iCategory);
+//                                                itemDateSimple.add(document.getData().get("DateSimple").toString());
+//                                            }
+//                                    }
+//                                }
+//                            }
+//                            SearchPopularAdapter adapter = new SearchPopularAdapter(itemDocid, itemTitle, itemCategory, itemDateSimple);
+//                            recyclerView.setAdapter(adapter);
+//                        } else {
+//                            Log.d("genki", "Error getting documents: ", task.getException());
+//                        }
+//                    }
+//                });
+//    }
 }

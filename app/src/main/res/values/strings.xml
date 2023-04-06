@@ -2,7 +2,7 @@
     <string name="app_name">Evenree - 予定管理アプリ</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
+    <string name="prompt_email">Mail</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -62,5 +62,7 @@
     <string name="register_here">Register here</string>
     <string name="login_here">Login here</string>
     <string name="copy_event">Do you want to copy the event?</string>
+    <string name="url_terms_of_use">shorturl.at/uEIWZ</string>
+    <string name="url_privacy_policy">https://docs.google.com/document/d/e/2PACX-1vSZGdp9nhtwHfJKOLpgYGVL_0XziOxV6UvSyKZle5LxVwoykhYAMZrRHfAM9lAEKP4uzMwCZEE-QSK-/pub</string>
 
 </resources>

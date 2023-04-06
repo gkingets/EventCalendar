@@ -36,6 +36,7 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.AggregateQuery;
@@ -78,6 +79,7 @@ public class MypageFragment extends Fragment {
     int num = 0;
     View view;
     List<String> monthList, monthLabel;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public MypageFragment() {
         // Required empty public constructor
@@ -85,6 +87,12 @@ public class MypageFragment extends Fragment {
 
     @Override
     public void onResume() {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, "MypageFragment");
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, "MainActivity");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
+
         getUid();
         super.onResume();
         BottomNavigationView navigationView = getActivity().findViewById(R.id.bottom_navigation);
@@ -180,16 +188,67 @@ public class MypageFragment extends Fragment {
 
         //initializing colors for the entries
         colors = new ArrayList<>();
-        colors.add(Color.parseColor("#03045e"));
-        colors.add(Color.parseColor("#023e8a"));
-        colors.add(Color.parseColor("#0077b6"));
-        colors.add(Color.parseColor("#0096c7"));
-        colors.add(Color.parseColor("#00b4d8"));
-        colors.add(Color.parseColor("#48cae4"));
-        colors.add(Color.parseColor("#90e0ef"));
-        colors.add(Color.parseColor("#ade8f4"));
-        colors.add(Color.parseColor("#caf0f8"));
+//        colors.add(Color.parseColor("#03045e"));
+//        colors.add(Color.parseColor("#023e8a"));
+//        colors.add(Color.parseColor("#0077b6"));
+//        colors.add(Color.parseColor("#0096c7"));
+//        colors.add(Color.parseColor("#00b4d8"));
+//        colors.add(Color.parseColor("#48cae4"));
+//        colors.add(Color.parseColor("#90e0ef"));
+//        colors.add(Color.parseColor("#ade8f4"));
+//        colors.add(Color.parseColor("#caf0f8"));
 
+//        colors.add(Color.parseColor("#001D29"));
+//        colors.add(Color.parseColor("#002B3D"));
+//        colors.add(Color.parseColor("#003952"));
+//        colors.add(Color.parseColor("#004766"));
+//        colors.add(Color.parseColor("#00567A"));
+//        colors.add(Color.parseColor("#00648F"));
+//        colors.add(Color.parseColor("#0072A3"));
+//        colors.add(Color.parseColor("#0081B8"));
+//        colors.add(Color.parseColor("#008FCC"));
+//        colors.add(Color.parseColor("#009DE0"));
+//        colors.add(Color.parseColor("#00ABF5"));
+//        colors.add(Color.parseColor("#0AB6FF"));
+//        colors.add(Color.parseColor("#1FBCFF"));
+//        colors.add(Color.parseColor("#33C2FF"));
+        colors.add(Color.rgb(randomIntR(),randomIntG(),randomIntB()));
+        colors.add(Color.rgb(randomIntR(),randomIntG(),randomIntB()));
+        colors.add(Color.rgb(randomIntR(),randomIntG(),randomIntB()));
+        colors.add(Color.rgb(randomIntR(),randomIntG(),randomIntB()));
+        colors.add(Color.rgb(randomIntR(),randomIntG(),randomIntB()));
+        colors.add(Color.rgb(randomIntR(),randomIntG(),randomIntB()));
+        colors.add(Color.rgb(randomIntR(),randomIntG(),randomIntB()));
+        colors.add(Color.rgb(randomIntR(),randomIntG(),randomIntB()));
+        colors.add(Color.rgb(randomIntR(),randomIntG(),randomIntB()));
+        colors.add(Color.rgb(randomIntR(),randomIntG(),randomIntB()));
+        Log.d("genki",""+randomIntR()+"|"+randomIntG()+"|"+randomIntB());
+        Log.d("genki",""+randomIntR()+"|"+randomIntG()+"|"+randomIntB());
+        Log.d("genki",""+randomIntR()+"|"+randomIntG()+"|"+randomIntB());
+        Log.d("genki",""+randomIntR()+"|"+randomIntG()+"|"+randomIntB());
+        Log.d("genki",""+randomIntR()+"|"+randomIntG()+"|"+randomIntB());
+        Log.d("genki",""+randomIntR()+"|"+randomIntG()+"|"+randomIntB());
+        Log.d("genki",""+randomIntR()+"|"+randomIntG()+"|"+randomIntB());
+        Log.d("genki",""+randomIntR()+"|"+randomIntG()+"|"+randomIntB());
+        Log.d("genki",""+randomIntR()+"|"+randomIntG()+"|"+randomIntB());
+    }
+    private int randomIntR() {
+        int min = 30; // Minimum value of range
+        int max = 150; // Maximum value of range
+        int random_int = (int)Math.floor(Math.random() * (max - min + 1) + min);
+        return random_int;
+    }
+    private int randomIntG() {
+        int min = 120; // Minimum value of range
+        int max = 200; // Maximum value of range
+        int random_int = (int)Math.floor(Math.random() * (max - min + 1) + min);
+        return random_int;
+    }
+    private int randomIntB() {
+        int min = 220; // Minimum value of range
+        int max = 240; // Maximum value of range
+        int random_int = (int)Math.floor(Math.random() * (max - min + 1) + min);
+        return random_int;
     }
 
     private void setPieChart(ArrayList<Integer> colors) {

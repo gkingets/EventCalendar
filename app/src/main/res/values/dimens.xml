@@ -7,4 +7,5 @@
     <dimen name="margin_grid">8dp</dimen>
     <dimen name="create_linear_layout">40dp</dimen>
     <dimen name="info_fontsize">14dp</dimen>
+    <dimen name="tutorial_circle">18dp</dimen>
 </resources>

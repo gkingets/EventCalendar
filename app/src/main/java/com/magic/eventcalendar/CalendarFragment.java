@@ -1,6 +1,7 @@
 package com.magic.eventcalendar;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 
@@ -19,10 +20,12 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -41,7 +44,7 @@ public class CalendarFragment extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     View view;
     String uid, currentDate, iUID, iCategory;
-    String categoryFilter = "イベント";
+    String categoryFilter = String.valueOf(R.string.cat_event);
     ArrayList<String> categoryEN;
     ArrayList<String> categoryJP;
     int iPersonal;
@@ -49,6 +52,8 @@ public class CalendarFragment extends Fragment {
     Spinner spinnerCategory;
     Switch switchPersonal;
     ImageButton btnClear;
+    private FirebaseAnalytics mFirebaseAnalytics;
+
 
     public CalendarFragment() {
         // Required empty public constructor
@@ -56,6 +61,12 @@ public class CalendarFragment extends Fragment {
 
     @Override
     public void onResume() {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, "CalendarFragment");
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, "MainActivity");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
+
         getUid();
         super.onResume();
         BottomNavigationView navigationView = getActivity().findViewById(R.id.bottom_navigation);
@@ -89,16 +100,6 @@ public class CalendarFragment extends Fragment {
         return view;
     }
 
-    public void findView() {
-        spinnerCategory = (Spinner) view.findViewById(R.id.calendar_category);
-        switchPersonal = (Switch) view.findViewById(R.id.calendar_personal);
-        btnClear = (ImageButton) view.findViewById(R.id.calendar_clear);
-
-        Resources res = getResources();
-        categoryEN = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryEN)));
-        categoryJP = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryJP)));
-
-    }
 
 
     public void setClear() {
@@ -128,7 +129,7 @@ public class CalendarFragment extends Fragment {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             uid = user.getUid();
         } catch (Exception e) {
-            Log.d("genki", "firstOpen|getUid");
+            Log.d("genki", "GUEST");
             uid = "GUEST";
 //            Intent intent = new Intent(getActivity(), MypageLogin.class);
 //            startActivity(intent);
@@ -172,7 +173,7 @@ public class CalendarFragment extends Fragment {
                                     // 2つ目の条件をつける
                                     if (iUID.equals(uid) == true) {
                                         if (iPersonal <= personalFlag) {
-                                            if (categoryFilter.equals(iCategory) || categoryFilter.equals(getString(R.string.cat_event))) {
+//                                            if (categoryFilter.equals(iCategory) || categoryFilter.equals(getActivity().getString(R.string.cat_event))) {
                                                 itemDocid.add(document.getId());
                                                 itemTitle.add(document.getData().get("Title").toString());
                                                 itemCategory.add(document.getData().get("Category").toString());
@@ -180,7 +181,7 @@ public class CalendarFragment extends Fragment {
                                                 itemDateSimple.add(document.getData().get("DateSimple").toString());
                                                 itemPersonal.add(document.getData().get("Personal").toString());
                                                 itemTimestamp.add(document.getData().get("Timestamp").toString());
-                                            }
+//                                            }
                                         }
                                     }
                                 }
@@ -213,6 +214,18 @@ public class CalendarFragment extends Fragment {
         });
 
     }
+
+    public void findView() {
+        spinnerCategory = (Spinner) view.findViewById(R.id.calendar_category);
+        switchPersonal = (Switch) view.findViewById(R.id.calendar_personal);
+        btnClear = (ImageButton) view.findViewById(R.id.calendar_clear);
+        Resources res = getResources();
+        categoryEN = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryEN)));
+        categoryJP = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryJP)));
+
+
+    }
+
 
 
 }

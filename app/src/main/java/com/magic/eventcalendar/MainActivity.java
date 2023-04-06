@@ -7,33 +7,36 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
     private SharedPreferences.OnSharedPreferenceChangeListener deepLinkListener;
     private FirebaseAnalytics mFirebaseAnalytics;
+    String uid;
+    Fragment firstFragment;
+    private static final String PREFS_NAME = "MyPrefsFile";
+    private static final String FIRST_TIME_LAUNCH = "first_time_launch";
 
     @Override
     protected void onStart() {
         super.onStart();
-        preferences.registerOnSharedPreferenceChangeListener(deepLinkListener);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        preferences.unregisterOnSharedPreferenceChangeListener(deepLinkListener);
-        deepLinkListener = null;
     }
 
     @Override
@@ -43,24 +46,25 @@ public class MainActivity extends AppCompatActivity {
 
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-
-        // DeepLink Setting
-        preferences =
-                getSharedPreferences("google.analytics.deferred.deeplink.prefs", MODE_PRIVATE);
-        deepLinkListener = (sharedPreferences, key) -> {
-            Log.d("DEEPLINK_LISTENER", "Deep link changed");
-            if ("deeplink".equals(key)) {
-                String deeplink = sharedPreferences.getString(key, null);
-                Double cTime = Double.longBitsToDouble(sharedPreferences.getLong("timestamp", 0));
-                Log.d("DEEPLINK_LISTENER", "Deep link retrieved: " + deeplink);
-                showDeepLinkResult(deeplink);
-            }
-        };
-
         // 常にDark theme off
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        Fragment firstFragment = new CalendarFragment();
+        getUid();
+
+        // チュートリアル
+        if (isFirstTimeLaunch()) {
+            // 最初の起動時にのみチュートリアルを表示する
+            Log.d("genki","Tutorial Start!");
+            showTutorial();
+//            setFirstTimeLaunch(false);
+            return;
+        }
+
+        if (uid.equals("GUEST")) {
+            firstFragment = new CreateFragment();
+        } else {
+            firstFragment = new CalendarFragment();
+        }
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(
@@ -95,13 +99,65 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-//        navigationView.getMenu().getItem(1).setChecked(true);
 
+    }
 
-        // ATTENTION: This was auto-generated to handle app links.
-        Intent appLinkIntent = getIntent();
-        String appLinkAction = appLinkIntent.getAction();
-        Uri appLinkData = appLinkIntent.getData();
+    // 最初の起動時にtrueを返す
+    private boolean isFirstTimeLaunch() {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        return prefs.getBoolean(FIRST_TIME_LAUNCH, true);
+    }
+
+    // 最初の起動時にfalseを設定する
+    private void setFirstTimeLaunch(boolean isFirstTime) {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(FIRST_TIME_LAUNCH, isFirstTime);
+        editor.apply();
+        Log.d("genki", "Tutorial Done!");
+    }
+
+    // チュートリアルを表示する
+    private void showTutorial() {
+        setContentView(R.layout.tutorial_layout1);
+        // レイアウト1を表示する
+        // ユーザーが「次へ」ボタンを押すと、次のレイアウトを表示する
+        // 最後のレイアウトの「完了」ボタンを押すと、メインアクティビティに戻る
+
+        Button nextButton = findViewById(R.id.tutorial_next_button_1);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setContentView(R.layout.tutorial_layout2);
+                // レイアウト2を表示する
+                // ユーザーが「次へ」ボタンを押すと、次のレイアウトを表示する
+                // 最後のレイアウトの「完了」ボタンを押すと、メインアクティビティに戻る
+
+                Button nextButton2 = findViewById(R.id.tutorial_next_button_2);
+                nextButton2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setContentView(R.layout.tutorial_layout3);
+                        // レイアウト3を表示する
+                        // ユーザーが「次へ」ボタンを押すと、次のレイアウトを表示する
+                        // 最後のレイアウトの「完了」ボタンを押すと、メインアクティビティに戻る
+
+                        Button doneButton = findViewById(R.id.done_button);
+                        doneButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // 最初の起動フラグをfalseに設定して、メインアクティビティに戻る
+                                setFirstTimeLaunch(false);
+//                                setContentView(R.layout.create);
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
 
     public void dialog(String timestamp, String uid) {
@@ -116,14 +172,15 @@ public class MainActivity extends AppCompatActivity {
         dialogRight.show(getSupportFragmentManager(), "my_dialog");
     }
 
-    public void showDeepLinkResult(String result) {
-        String toastText = result;
-        if (toastText == null) {
-            toastText = "The deep link retrieval failed";
-        } else if (toastText.isEmpty()) {
-            toastText = "Deep link empty";
+    public void getUid() {
+        // Get UID
+        try {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            uid = user.getUid();
+        } catch (Exception e) {
+            uid = "GUEST";
+//            Intent intent = new Intent(getActivity(), MypageLogin.class);
+//            startActivity(intent);
         }
-        Toast.makeText(MainActivity.this, toastText, Toast.LENGTH_LONG).show();
-        Log.d("DEEPLINK", toastText);
     }
 }

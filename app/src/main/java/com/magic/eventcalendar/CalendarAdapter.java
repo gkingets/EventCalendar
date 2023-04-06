@@ -127,9 +127,13 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
         if (dateSimple.equals("-/-")) {
             dif = "-";
         } else {
-            long tempTimestamp = calendarDate.getTime() - currentDate.getTime();
-
-            dif = String.valueOf((int) TimeUnit.DAYS.convert(calendarDate.getTime() - currentDate.getTime(), TimeUnit.MILLISECONDS)+1 );
+            Log.d("genki", "calendarDate.getTime()|"+ (calendarDate.getTime() / (60*60*24*1000)));
+            Log.d("genki", "currentDate.getTime() |"+ (currentDate.getTime()  / (60*60*24*1000)));
+            Log.d("genki", "a - b | " + TimeUnit.DAYS.convert((calendarDate.getTime() / (60*60*24*1000)), TimeUnit.MILLISECONDS));
+//            Log.d("genki", "cal - cur | " + String.valueOf(calendarDate.getTime() - currentDate.getTime()));
+            Log.d("genki", "********");
+            dif = String.valueOf((calendarDate.getTime()/(60*60*24*1000)) - (currentDate.getTime()/(60*60*24*1000)) + 1);
+//            dif = String.valueOf((int) TimeUnit.DAYS.convert(calendarDate.getTime() - currentDate.getTime(), TimeUnit.MILLISECONDS) );
         }
     }
 

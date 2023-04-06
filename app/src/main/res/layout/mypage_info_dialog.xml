@@ -53,6 +53,34 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/terms_of_service"
+            android:textSize="@dimen/info_fontsize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:autoLink="web"
+            android:text="shorturl.at/epIM8"
+            android:textSize="@dimen/info_fontsize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/privacy_policy"
+            android:textSize="@dimen/info_fontsize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:autoLink="web"
+            android:text="shorturl.at/gyJMQ"
+            android:textSize="@dimen/info_fontsize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Designed by Freepik : Thank you for your help!"
             android:textSize="@dimen/info_fontsize" />
 
