@@ -35,19 +35,6 @@
             android:text="https://forms.gle/Lkj4WUuxJy5ULi5b7"
             android:textSize="@dimen/info_fontsize" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Designed by Freepik"
-            android:textSize="@dimen/info_fontsize" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:autoLink="web"
-            android:text="www.freepik.com"
-            android:textSize="@dimen/info_fontsize" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -62,6 +49,33 @@
             android:autoLink="web"
             android:text="https://play.google.com/store/apps/details?id=com.magic.eventcalendar"
             android:textSize="@dimen/info_fontsize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Designed by Freepik : Thank you for your help!"
+            android:textSize="@dimen/info_fontsize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:text="www.freepik.com"
+            android:textSize="@dimen/info_fontsize" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Image by upklyakon Freepik\nImage by freepikon Freepik\nImage by macrovectoron Freepik\nImage by pikisuperstaron Freepik\nImage by vectorpouchon Freepik\nImage by vectorpocketon Freepik\nImage by pch.vectoron Freepik\nImage by katemangostaron Freepik"
+            android:textSize="12dp"
+            android:textStyle="italic"
+            android:textColor="@color/md_theme_dark_secondaryContainer"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            />
+
+
+
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

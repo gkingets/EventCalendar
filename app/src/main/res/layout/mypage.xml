@@ -36,6 +36,14 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <Button
+                android:id="@+id/mypage_mypage"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="My Page"
+                android:textSize="10dp"
+                android:visibility="visible"/>
+            <Button
                 android:id="@+id/mypage_login"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
@@ -55,7 +63,8 @@
                 android:layout_gravity="center"
                 android:backgroundTint="#83656565"
                 android:text="@string/logout"
-                android:textSize="10dp" />
+                android:textSize="10dp"
+                android:visibility="gone" />
 
         </LinearLayout>
 

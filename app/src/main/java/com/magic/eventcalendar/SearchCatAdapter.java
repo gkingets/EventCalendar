@@ -28,7 +28,7 @@ public class SearchCatAdapter extends RecyclerView.Adapter<SearchCatAdapter.View
     private final java.util.List<String> iDate;
     private final java.util.List<String> iDateSimple;
     Context context;
-    String dif;
+    String dif, uid;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -54,11 +54,12 @@ public class SearchCatAdapter extends RecyclerView.Adapter<SearchCatAdapter.View
 
     // Provide a suitable constructor (depends on the kind of dataset)
     SearchCatAdapter(List<String> itemDocId, List<String> itemTitle, List<String> itemDate,
-                     List<String> itemDateSimple) {
+                     List<String> itemDateSimple, String uid) {
         this.iDocId = itemDocId;
         this.iTitle = itemTitle;
         this.iDate = itemDate;
         this.iDateSimple = itemDateSimple;
+        this.uid = uid;
     }
 
     // Create new views (invoked by the layout manager)
@@ -88,7 +89,11 @@ public class SearchCatAdapter extends RecyclerView.Adapter<SearchCatAdapter.View
         holder.textDateLeft.setText(dif);
 
         holder.btnCopy.setOnClickListener(v -> {
-            dialog(iDocId.get(position));
+            if (uid.equals("GUEST")) {
+                dialogLogin(uid);
+            } else {
+                dialogCopy(iDocId.get(position));
+            }
         });
         
     }
@@ -112,7 +117,7 @@ public class SearchCatAdapter extends RecyclerView.Adapter<SearchCatAdapter.View
         dif = String.valueOf((int) TimeUnit.DAYS.convert(calendarDate.getTime() - currentDate.getTime(), TimeUnit.MILLISECONDS)+1 );
     }
 
-    public void dialog(String docId) {
+    public void dialogCopy(String docId) {
         SearchCatAdapterCopyDialog dialogRight = new SearchCatAdapterCopyDialog();
         // 渡す値をセット
         Bundle args = new Bundle();
@@ -122,6 +127,17 @@ public class SearchCatAdapter extends RecyclerView.Adapter<SearchCatAdapter.View
         // AdopterにDialogを使うために、((AppCompatActivity) context)を追加
         dialogRight.show(((AppCompatActivity) context).getSupportFragmentManager(), "my_dialog");
 
+    }
+
+    public void dialogLogin(String uid) {
+        MypageLoginDialog dialogRight = new MypageLoginDialog();
+        // 渡す値をセット
+        Bundle args = new Bundle();
+
+        args.putString("uid", uid);
+
+        dialogRight.setArguments(args);
+        dialogRight.show(((AppCompatActivity) context).getSupportFragmentManager(), "my_dialog");
     }
 
 

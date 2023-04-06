@@ -68,8 +68,9 @@ public class SearchCat extends AppCompatActivity {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             uid = user.getUid();
         } catch (Exception e) {
-            intent = new Intent(this, MypageLogin.class);
-            startActivity(intent);
+            uid = "GUEST";
+//            Intent intent = new Intent(getActivity(), MypageLogin.class);
+//            startActivity(intent);
         }
 
         listChanges();
@@ -129,7 +130,7 @@ public class SearchCat extends AppCompatActivity {
                                     }
                                 }
                             }
-                            SearchCatAdapter adapter = new SearchCatAdapter(itemDocid, itemTitle, itemDate, itemDateSimple);
+                            SearchCatAdapter adapter = new SearchCatAdapter(itemDocid, itemTitle, itemDate, itemDateSimple, uid);
                             recyclerView.setAdapter(adapter);
                         } else {
                             Log.d("genki", "Error getting documents: ", task.getException());

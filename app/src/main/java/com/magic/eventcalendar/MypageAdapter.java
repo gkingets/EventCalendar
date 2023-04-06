@@ -96,8 +96,8 @@ public class MypageAdapter extends RecyclerView.Adapter<MypageAdapter.ViewHolder
         // Delete ボタンのクリック
         deleteBtn.setOnClickListener(v -> {
             new AlertDialog.Builder(v.getContext())
-                    .setTitle("イベントを削除しますか？")
-                    .setPositiveButton( "はい", new  DialogInterface.OnClickListener() {
+                    .setTitle(R.string.delete_event)
+                    .setPositiveButton( R.string.yes, new  DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             Func del = new Func();
                             del.deleteData(iDocId.get(position));
@@ -113,7 +113,7 @@ public class MypageAdapter extends RecyclerView.Adapter<MypageAdapter.ViewHolder
 
                         }
                     })
-                    .setNeutralButton( "キャンセル", new  DialogInterface.OnClickListener() {
+                    .setNeutralButton( R.string.cancel, new  DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                         }
                     })

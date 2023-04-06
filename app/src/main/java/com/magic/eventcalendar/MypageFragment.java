@@ -61,7 +61,7 @@ public class MypageFragment extends Fragment {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     TextView textWelcome, textCount;
-    Button btnLogin, btnLogout;
+    Button btnLogin, btnLogout, btnMypage;
     ImageView imageInfo;
     String uid, currentDate, iUID, iCategory, iMonth;
     String[] category_list;
@@ -87,6 +87,8 @@ public class MypageFragment extends Fragment {
     public void onResume() {
         getUid();
         super.onResume();
+        BottomNavigationView navigationView = getActivity().findViewById(R.id.bottom_navigation);
+        navigationView.getMenu().getItem(3).setChecked(true);
     }
 
     @Override
@@ -109,21 +111,26 @@ public class MypageFragment extends Fragment {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             uid = user.getUid();
         } catch (Exception e) {
-            Intent intent = new Intent(getActivity(), MypageLogin.class);
-            startActivity(intent);
+            uid = "GUEST";
+//            Intent intent = new Intent(getActivity(), MypageLogin.class);
+//            startActivity(intent);
         }
 
-        // Click Login button
-        btnLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), MypageLogin.class);
-            startActivity(intent);
-        });
+//        // Click Login button
+//        btnLogin.setOnClickListener(v -> {
+//            Intent intent = new Intent(getActivity(), MypageLogin.class);
+//            startActivity(intent);
+//        });
+//
+//        // Click Logout button
+//        btnLogout.setOnClickListener(v -> {
+//            FirebaseAuth.getInstance().signOut();
+//            Intent intent = new Intent(getActivity(), MypageLogin.class);
+//            startActivity(intent);
+//        });
 
-        // Click Logout button
-        btnLogout.setOnClickListener(v -> {
-            FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(getActivity(), MypageLogin.class);
-            startActivity(intent);
+        btnMypage.setOnClickListener(v -> {
+            dialogLogin(uid);
         });
 
         imageInfo.setOnClickListener(v -> {
@@ -131,21 +138,6 @@ public class MypageFragment extends Fragment {
         });
 
 
-
-        Button btnTest = (Button) view.findViewById(R.id.mypage_test);
-        btnTest.setOnClickListener(v -> {
-            FragmentManager fragmentManager = getParentFragmentManager();
-            FragmentTransaction fragmentTransaction =
-                    fragmentManager.beginTransaction();
-            // BackStackを設定
-            fragmentTransaction.addToBackStack(null);
-
-            fragmentTransaction.replace(R.id.container, new CalendarFragment());
-            fragmentTransaction.commit();
-
-            BottomNavigationView navigationView = getActivity().findViewById(R.id.bottom_navigation);
-            navigationView.getMenu().getItem(0).setChecked(true);
-        });
 
 
 
@@ -155,21 +147,6 @@ public class MypageFragment extends Fragment {
         listChanges();
 
         return view;
-    }
-
-
-    private void findView() {
-        pieChart = view.findViewById(R.id.idPieChart);
-        barChart = view.findViewById(R.id.idBarChart);
-        btnLogin = (Button) view.findViewById(R.id.mypage_login);
-        btnLogout = (Button) view.findViewById(R.id.mypage_logout);
-        textCount = (TextView) view.findViewById(R.id.mypage_count);
-        imageInfo = (ImageView) view.findViewById(R.id.mypage_info);
-
-        Resources res = getResources();
-        categoryEN = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryEN)));
-        categoryJP = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryJP)));
-
     }
 
 
@@ -369,21 +346,18 @@ public class MypageFragment extends Fragment {
 
         dialogRight.setArguments(args);
         dialogRight.show(getActivity().getSupportFragmentManager(), "my_dialog");
-
     }
 
-    // Change welcome text
-//    public void changeWelcome() {
-//        try {
-//            getUid();
-//            if (uid != null) {
-//                textWelcome.setText("Welcome back");
-//            }
-//        } catch (Exception e) {
-//            textWelcome.setText("Welcome GUEST");
-//        }
-//    }
+    public void dialogLogin(String uid) {
+        MypageLoginDialog dialogRight = new MypageLoginDialog();
+        // 渡す値をセット
+        Bundle args = new Bundle();
 
+        args.putString("uid", uid);
+
+        dialogRight.setArguments(args);
+        dialogRight.show(getActivity().getSupportFragmentManager(), "my_dialog");
+    }
 
     // Get uid
     public void getUid() {
@@ -392,8 +366,9 @@ public class MypageFragment extends Fragment {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             uid = user.getUid();
         } catch (Exception e) {
-            Intent intent = new Intent(getActivity(), MypageLogin.class);
-            startActivity(intent);
+            uid = "GUEST";
+//            Intent intent = new Intent(getActivity(), MypageLogin.class);
+//            startActivity(intent);
         }
     }
 
@@ -446,5 +421,20 @@ public class MypageFragment extends Fragment {
         MypageFragment fragment = new MypageFragment();
 
         return fragment;
+    }
+
+    private void findView() {
+        pieChart = view.findViewById(R.id.idPieChart);
+        barChart = view.findViewById(R.id.idBarChart);
+        btnLogin = (Button) view.findViewById(R.id.mypage_login);
+        btnLogout = (Button) view.findViewById(R.id.mypage_logout);
+        btnMypage = (Button) view.findViewById(R.id.mypage_mypage);
+        textCount = (TextView) view.findViewById(R.id.mypage_count);
+        imageInfo = (ImageView) view.findViewById(R.id.mypage_info);
+
+        Resources res = getResources();
+        categoryEN = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryEN)));
+        categoryJP = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryJP)));
+
     }
 }

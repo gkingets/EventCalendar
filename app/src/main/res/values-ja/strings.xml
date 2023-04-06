@@ -49,4 +49,18 @@
     <string name="keep_creating">続けて入力する</string>
     <string name="register_to_calendar_app">カレンダーアプリへ登録</string>
     <string name="feedback_form">コメントフォーム</string>
+    <string name="delete_event">イベントを削除しますか？</string>
+    <string name="yes">はい</string>
+    <string name="cancel">キャンセル</string>
+    <string name="agree_checkbox">* チェックボックスに同意してください</string>
+    <string name="agree_to_the_terms_of_service">利用規約に同意する</string>
+    <string name="agree_to_the_privacy_policy">プライバシーポリシーに同意する</string>
+    <string name="terms_of_service">利用規約</string>
+    <string name="privacy_policy">プライバシーポリシー</string>
+    <string name="login">ログイン</string>
+    <string name="register_here">登録はこちらから</string>
+    <string name="register">新規登録</string>
+    <string name="login_here">ログインはこちらから</string>
+    <string name="copy_event">イベントをコピーしますか？</string>
+
 </resources>

@@ -98,7 +98,11 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
 
         // Click Save
         btnSave.setOnClickListener(v -> {
-            clickSave();
+            if (uid.equals("GUEST")) {
+                dialogLogin(uid);
+            } else {
+                clickSave();
+            }
         });
 
         return view;
@@ -210,29 +214,13 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             uid = user.getUid();
         } catch (Exception e) {
-            Intent intent = new Intent(getActivity(), MypageLogin.class);
-            startActivity(intent);
+            uid = "GUEST";
+//            Intent intent = new Intent(getActivity(), MypageLogin.class);
+//            startActivity(intent);
         }
     }
 
-    public void findView() {
-        image = (ImageView) view.findViewById(R.id.create_image);
-        spinnerCategory = (Spinner) view.findViewById(R.id.create_category);
-        switchPersonal = (Switch) view.findViewById(R.id.create_personal);
-        timePickerFrom = (TimePicker) view.findViewById(R.id.create_timepicker_from); // initiate a time picker
-        timePickerTo = (TimePicker) view.findViewById(R.id.create_timepicker_to); // initiate a time picker
-        timePickerLayout = (LinearLayout) view.findViewById(R.id.create_timepicker_layout);
-        timePickerLayout.setVisibility(View.GONE);
-        dateLayout = (LinearLayout) view.findViewById(R.id.create_date_layout);
-        materialButtonToggleGroup = view.findViewById(R.id.create_toggle_group);
-        btnSave = (Button) view.findViewById(R.id.create_save);
-        textDate = view.findViewById(R.id.create_date);
 
-        Resources res = getResources();
-        categoryEN = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryEN)));
-        categoryJP = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryJP)));
-
-    }
 
 
     public void setCalendar() {
@@ -428,4 +416,33 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
         }
     }
 
+    public void dialogLogin(String uid) {
+        MypageLoginDialog dialogRight = new MypageLoginDialog();
+        // 渡す値をセット
+        Bundle args = new Bundle();
+
+        args.putString("uid", uid);
+
+        dialogRight.setArguments(args);
+        dialogRight.show(getActivity().getSupportFragmentManager(), "my_dialog");
+    }
+
+    public void findView() {
+        image = (ImageView) view.findViewById(R.id.create_image);
+        spinnerCategory = (Spinner) view.findViewById(R.id.create_category);
+        switchPersonal = (Switch) view.findViewById(R.id.create_personal);
+        timePickerFrom = (TimePicker) view.findViewById(R.id.create_timepicker_from); // initiate a time picker
+        timePickerTo = (TimePicker) view.findViewById(R.id.create_timepicker_to); // initiate a time picker
+        timePickerLayout = (LinearLayout) view.findViewById(R.id.create_timepicker_layout);
+        timePickerLayout.setVisibility(View.GONE);
+        dateLayout = (LinearLayout) view.findViewById(R.id.create_date_layout);
+        materialButtonToggleGroup = view.findViewById(R.id.create_toggle_group);
+        btnSave = (Button) view.findViewById(R.id.create_save);
+        textDate = view.findViewById(R.id.create_date);
+
+        Resources res = getResources();
+        categoryEN = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryEN)));
+        categoryJP = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.categoryJP)));
+
+    }
 }

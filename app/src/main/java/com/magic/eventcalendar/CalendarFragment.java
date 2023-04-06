@@ -22,6 +22,7 @@ import android.widget.Switch;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -57,6 +58,8 @@ public class CalendarFragment extends Fragment {
     public void onResume() {
         getUid();
         super.onResume();
+        BottomNavigationView navigationView = getActivity().findViewById(R.id.bottom_navigation);
+        navigationView.getMenu().getItem(0).setChecked(true);
     }
 
     @Override
@@ -75,6 +78,9 @@ public class CalendarFragment extends Fragment {
         setCategorySpinner();
         listChanges();
         switchPersonal();
+
+        BottomNavigationView navigationView = getActivity().findViewById(R.id.bottom_navigation);
+        navigationView.getMenu().getItem(0).setChecked(true);
 
         btnClear.setOnClickListener(v -> {
             setClear();
@@ -123,8 +129,9 @@ public class CalendarFragment extends Fragment {
             uid = user.getUid();
         } catch (Exception e) {
             Log.d("genki", "firstOpen|getUid");
-            Intent intent = new Intent(getActivity(), MypageLogin.class);
-            startActivity(intent);
+            uid = "GUEST";
+//            Intent intent = new Intent(getActivity(), MypageLogin.class);
+//            startActivity(intent);
         }
     }
 

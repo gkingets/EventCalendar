@@ -239,7 +239,6 @@ public class CalendarEdit extends DialogFragment implements DatePickerDialog.OnD
         deleteImage = (ImageView) dialogLayout.findViewById(R.id.edit_delete);
         copyImage = (ImageView) dialogLayout.findViewById(R.id.edit_copy);
         calendarImage = (ImageView) dialogLayout.findViewById(R.id.edit_calendar);
-//        textDate = dialogLayout.findViewById(R.id.edit_date);
 
         timePickerFrom = (TimePicker) dialogLayout.findViewById(R.id.edit_timepicker_from); // initiate a time picker
         timePickerTo = (TimePicker) dialogLayout.findViewById(R.id.edit_timepicker_to); // initiate a time picker
@@ -300,8 +299,9 @@ public class CalendarEdit extends DialogFragment implements DatePickerDialog.OnD
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             uid = user.getUid();
         } catch (Exception e) {
-            Intent intent = new Intent(getActivity(), MypageLogin.class);
-            startActivity(intent);
+            uid = "GUEST";
+//            Intent intent = new Intent(getActivity(), MypageLogin.class);
+//            startActivity(intent);
         }
     }
 
@@ -315,6 +315,9 @@ public class CalendarEdit extends DialogFragment implements DatePickerDialog.OnD
         textDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (dateInt>30000000) {
+                    dateInt -= 10000000;
+                }
                 int year = (int) Math.floor(dateInt/10000);
                 int month = (int) Math.floor(dateInt/100) - year*100;
                 int date = dateInt - (year*10000 + month*100);
@@ -394,8 +397,8 @@ public class CalendarEdit extends DialogFragment implements DatePickerDialog.OnD
 
     public void clickDelete(String docId) {
         new AlertDialog.Builder(getContext())
-                .setTitle("イベントを削除しますか？")
-                .setPositiveButton( "はい", new  DialogInterface.OnClickListener() {
+                .setTitle(R.string.delete_event)
+                .setPositiveButton( R.string.yes, new  DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Func del = new Func();
                         del.deleteData(docId);
@@ -403,7 +406,7 @@ public class CalendarEdit extends DialogFragment implements DatePickerDialog.OnD
                         dismiss();
                     }
                 })
-                .setNeutralButton( "キャンセル", new  DialogInterface.OnClickListener() {
+                .setNeutralButton( R.string.cancel, new  DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 })

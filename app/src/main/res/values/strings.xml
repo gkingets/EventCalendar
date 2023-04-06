@@ -49,5 +49,18 @@
     <string name="keep_creating">Continue</string>
     <string name="register_to_calendar_app">Register to calendar app</string>
     <string name="feedback_form">Feedback Form</string>
+    <string name="yes">YES</string>
+    <string name="cancel">CANCEL</string>
+    <string name="agree_checkbox">* Please agree to the check box</string>
+    <string name="delete_event">Do you want to delete the event?</string>
+    <string name="agree_to_the_terms_of_service">I agree to the Terms of Use</string>
+    <string name="agree_to_the_privacy_policy">I agree to the Privacy Policy</string>
+    <string name="terms_of_service">Terms of Use</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="register_here">Register here</string>
+    <string name="login_here">Login here</string>
+    <string name="copy_event">Do you want to copy the event?</string>
 
 </resources>
